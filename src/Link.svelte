@@ -34,16 +34,31 @@
     text-decoration: none;
     color: inherit;
     margin-bottom: 20px;
-    background-repeat: no-repeat;
-    background-size: 200px;
-    padding: 10px 10px 10px 240px;
     border: 1px solid #ddd;
     border-radius: 3px;
+}
+.linkContainer {
+    background-repeat: no-repeat;
+    background-size: 400px;
+    padding: 14px 24px 14px 240px;
+    position: relative;
+    z-index: 0;
+}
+.linkContainer::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 220px);
+    top: 0;
+    left: 220px;
+    display: block;
+    background-color: #fff;
+    z-index: -1;
 }
 .linkTitle {
     margin: 0 0 12px;
     padding: 0;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.3;
     color: #369;
 }
@@ -62,11 +77,11 @@
 }
 </style>
 
-<div class="linkContainer">
+<a class="link" href="{url}" target="_blank">
     {#await getOpenGraphData}
-        ...loading link
+        <div class="linkContainer">...loading link</div>
     {:then data}
-        <a class="link" href="{url}" target="_blank" style="background-image: url({data.image})">
+        <div class="linkContainer" style="background-image: url({data.image})">
             <h1 class="linkTitle">
                 {#if data.title}
                    {data.title}
@@ -79,9 +94,11 @@
             </h1>
             {#if data.description}<p class="linkDescription">{data.description}</p>{/if}
             <div class="linkDate">{formatDate(date)}</div>
-        </a>
+        </div>
     {:catch error}
-        <a href="{url}" target="_blank">{url}</a><br>
-        {formatDate(date)}
+        <div class="linkContainer">
+            <h1 class="linkTitle">{url}</h1>
+            <div class="linkDate">{formatDate(date)}</div>
+        </div>
     {/await}
-</div>
+</a>
