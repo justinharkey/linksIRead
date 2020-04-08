@@ -9,3 +9,9 @@ export const handleStatus = (response) => {
 export const toJson = (response) => {
     return response.json();
 }
+
+export const decodeHtmlEntities = (str) => {
+    return str.replace(/&#(\d+);/g, function(match, dec) {
+        return String.fromCharCode(dec);
+    });
+};

@@ -3,6 +3,7 @@
     export let date;
 
     import moment from 'moment';
+    import { decodeHtmlEntities } from './utils.js';
 
     const formatDate = (date) => {
 		return moment(date).format('MMMM Do, YYYY');
@@ -79,12 +80,12 @@
 
 <a class="link" href="{url}" target="_blank">
     {#await getOpenGraphData}
-        <div class="linkContainer">...loading link</div>
+        <div class="linkContainer">...loading open graph data</div>
     {:then data}
         <div class="linkContainer" style="background-image: url({data.image})">
             <h1 class="linkTitle">
                 {#if data.title}
-                   {data.title}
+                   {decodeHtmlEntities(data.title)}
                 {:else}
                     {url}
                 {/if}
@@ -92,7 +93,7 @@
                     - {data.site_name}
                 {/if}
             </h1>
-            {#if data.description}<p class="linkDescription">{data.description}</p>{/if}
+            {#if data.description}<p class="linkDescription">{decodeHtmlEntities(data.description)}</p>{/if}
             <div class="linkDate">{formatDate(date)}</div>
         </div>
     {:catch error}
