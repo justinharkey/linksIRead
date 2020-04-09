@@ -20,9 +20,9 @@
                 if (metaTag[0].includes('og:')) {
                     const propertySearch = /property="([^\"]*)"/gi;
                     const contentSearch = /content="([^\"]*)"/gi;
-                    const key = propertySearch.exec(metaTag[0]);
-                    const value = contentSearch.exec(metaTag[0]);
-                    ogTags[key[1]] = value[1];
+                    const property = propertySearch.exec(metaTag[0]);
+                    const content = contentSearch.exec(metaTag[0]);
+                    ogTags[property[1]] = content[1];
                 }
             });
         }
