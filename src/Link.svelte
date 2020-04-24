@@ -37,7 +37,7 @@
 	}
     
     const getOpenGraphData = (async () => {
-        const response = await fetch(`https://cors-anywhere.herokuapp.com/${url}`, { cache: 'force-cache' });
+        const response = await fetch(`//18.219.50.106:8080/${url}`, { cache: 'force-cache' });
         const htmlData = await response.text();
         return await parseOpenGraphData(htmlData);
     })();
@@ -60,10 +60,12 @@
     box-shadow: 0px 6px 10px rgba(0,0,0,0.16);
 }
 .link__container {
-    background-size: 400px;
+    background-size: 220px;
     padding: 14px 24px 14px 240px;
     position: relative;
     z-index: 0;
+    background-repeat: repeat-y;
+    background-position: left center;
 }
 .link__container::before {
     content: '';
